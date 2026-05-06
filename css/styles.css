@@ -11,6 +11,8 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   color: var(--bidsy-text);
   background-color: #ffffff;
@@ -22,11 +24,9 @@ body {
 }
 
 .site-nav {
-  padding: 0;
-}
-
-.site-nav__container {
-  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .site-nav__logo {
@@ -34,13 +34,11 @@ body {
   height: auto;
 }
 
-.site-nav__collapse {
-  align-items: center;
-}
-
 .site-nav__links {
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
   gap: 22px;
+  margin-left: 170px;
 }
 
 .site-nav__link {
@@ -49,6 +47,7 @@ body {
   font-size: 36px;
   line-height: 1;
   letter-spacing: 0;
+  text-decoration: none;
   text-transform: uppercase;
 }
 
@@ -64,12 +63,16 @@ body {
 }
 
 .site-nav__create {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 260px;
   padding: 18px 30px;
   color: #ffffff;
   background-color: var(--bidsy-purple);
   border-radius: 8px;
   font-size: 18px;
+  text-decoration: none;
   text-transform: uppercase;
 }
 
@@ -107,14 +110,13 @@ body {
 .auth-page {
   display: flex;
   align-items: flex-start;
+  flex: 1;
   justify-content: center;
-  min-height: 100vh;
-  padding: 184px 24px 40px;
+  padding: 92px 24px 150px;
 }
 
 .auth-page--with-header {
-  min-height: calc(100vh - 96px);
-  padding-top: 88px;
+  padding-top: 92px;
 }
 
 .auth-card {
@@ -181,45 +183,40 @@ body {
   text-decoration: underline;
 }
 
-@media (max-width: 767.98px) {
-  .site-header {
-    padding: 20px 24px 0;
-  }
+.site-footer {
+  padding: 0 64px 38px;
+}
 
-  .site-nav__logo {
-    width: 145px;
-  }
+.site-footer__inner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
 
-  .site-nav__collapse {
-    padding-top: 24px;
-  }
+.site-footer__logo {
+  width: 180px;
+  height: auto;
+}
 
-  .site-nav__links,
-  .site-nav__actions {
-    align-items: flex-start;
-    margin: 0;
-    gap: 16px;
-  }
+.site-footer__links {
+  display: flex;
+  align-items: center;
+  gap: 120px;
+  margin-bottom: 22px;
+}
 
-  .site-nav__link {
-    font-size: 28px;
-  }
+.site-footer__link {
+  color: #333333;
+  font-size: 18px;
+  text-decoration: none;
+}
 
-  .site-nav__create {
-    min-width: 210px;
-  }
+.site-footer__link:hover {
+  color: var(--bidsy-purple);
+}
 
-  .auth-page,
-  .auth-page--with-header {
-    min-height: auto;
-    padding-top: 80px;
-  }
-
-  .auth-card {
-    padding: 42px 24px 38px;
-  }
-
-  .auth-card__title {
-    font-size: 30px;
-  }
+.site-footer__copyright {
+  margin: 0 0 2px;
+  color: #333333;
+  font-size: 14px;
 }
