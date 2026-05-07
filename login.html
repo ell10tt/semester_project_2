@@ -6,7 +6,7 @@
     <title>Login | Bidsy</title>
     <script type="module" src="/js/index.js"></script>
   </head>
-  <body>
+  <body data-page="login">
     <header class="site-header">
       <nav class="site-nav" aria-label="Main navigation">
         <a class="site-nav__brand" href="index.html" aria-label="Bidsy home">
@@ -19,13 +19,38 @@
         </div>
 
         <div class="site-nav__actions">
-          <a class="site-nav__create" href="create-listing.html">Create Listing</a>
-          <button class="site-nav__icon-button" type="button" aria-label="Notifications">
+          <a class="site-nav__account-link" href="login.html" data-guest-only>Login</a>
+          <a class="site-nav__account-link" href="register.html" data-guest-only
+            >Register</a
+          >
+          <span class="site-nav__credit-count" data-auth-only data-user-credits></span>
+          <a class="site-nav__create" href="create-listing.html" data-auth-only>
+            Create Listing
+          </a>
+          <button
+            class="site-nav__icon-button"
+            type="button"
+            aria-label="Notifications"
+            data-auth-only
+          >
             <i class="bi bi-bell"></i>
           </button>
-          <a class="site-nav__avatar" href="profile.html" aria-label="Profile">
+          <a
+            class="site-nav__avatar"
+            href="profile.html"
+            aria-label="Profile"
+            data-auth-only
+          >
             <i class="bi bi-person-fill"></i>
           </a>
+          <button
+            class="site-nav__logout-button"
+            type="button"
+            data-auth-only
+            data-logout-button
+          >
+            Logout
+          </button>
         </div>
       </nav>
     </header>
@@ -34,10 +59,18 @@
       <section class="auth-card" aria-labelledby="login-title">
         <h1 class="auth-card__title" id="login-title">Login to Your Account</h1>
 
-        <form class="auth-form">
+        <div class="page-message" data-message></div>
+
+        <form class="auth-form" id="login-form">
           <div class="auth-form__group">
             <label class="form-label" for="login-email">Email:</label>
-            <input class="form-control auth-form__input" id="login-email" type="email" />
+            <input
+              class="form-control auth-form__input"
+              id="login-email"
+              name="email"
+              required
+              type="email"
+            />
           </div>
 
           <div class="auth-form__group">
@@ -45,6 +78,8 @@
             <input
               class="form-control auth-form__input"
               id="login-password"
+              name="password"
+              required
               type="password"
             />
           </div>

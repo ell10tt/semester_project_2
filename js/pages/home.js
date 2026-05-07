@@ -2,23 +2,23 @@ import { getListings } from "../api/listings.js";
 import { renderListingCard } from "../ui/renderListingCard.js";
 import { clearMessage, showMessage } from "../ui/showMessage.js";
 
-const messageSelector = "[data-listings-message]";
+const messageSelector = "[data-home-message]";
 
-export async function setupListingsPage() {
-  const listingsContainer = document.querySelector("[data-listings-container]");
+export async function setupHomePage() {
+  const listingsContainer = document.querySelector("[data-featured-listings]");
 
   if (!listingsContainer) {
     return;
   }
 
-  showMessage("Loading auctions...", "info", messageSelector);
+  showMessage("Loading featured auctions...", "info", messageSelector);
 
   try {
-    const listings = await getListings();
+    const listings = await getListings(3);
 
     if (!listings || listings.length === 0) {
       listingsContainer.replaceChildren();
-      showMessage("No auctions found.", "info", messageSelector);
+      showMessage("No featured auctions found.", "info", messageSelector);
       return;
     }
 

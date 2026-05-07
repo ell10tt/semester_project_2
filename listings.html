@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Auctions | Bidsy</title>
+    <script type="module" src="/js/index.js"></script>
+  </head>
+  <body data-page="listings">
+    <header class="site-header">
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="site-nav__brand" href="index.html" aria-label="Bidsy home">
+          <img class="site-nav__logo" src="/img/logo-2.svg" alt="Bidsy" />
+        </a>
+
+        <div class="site-nav__links">
+          <a class="site-nav__link" href="index.html">Home</a>
+          <a class="site-nav__link site-nav__link--active" href="listings.html">
+            Auctions
+          </a>
+        </div>
+
+        <div class="site-nav__actions">
+          <a class="site-nav__account-link" href="login.html" data-guest-only>Login</a>
+          <a class="site-nav__account-link" href="register.html" data-guest-only>
+            Register
+          </a>
+          <span class="site-nav__credit-count" data-auth-only data-user-credits></span>
+          <a class="site-nav__create" href="create-listing.html" data-auth-only>
+            Create Listing
+          </a>
+          <button
+            class="site-nav__icon-button"
+            type="button"
+            aria-label="Notifications"
+            data-auth-only
+          >
+            <i class="bi bi-bell"></i>
+          </button>
+          <a
+            class="site-nav__avatar"
+            href="profile.html"
+            aria-label="Profile"
+            data-auth-only
+          >
+            <i class="bi bi-person-fill"></i>
+          </a>
+          <button
+            class="site-nav__logout-button"
+            type="button"
+            data-auth-only
+            data-logout-button
+          >
+            Logout
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="listings-page flex-grow-1 px-5 pt-5 pb-5">
+      <h1 class="listings-page__title text-center mb-5">All Auctions</h1>
+      <div
+        class="page-message listings-page__message mx-auto mb-4"
+        data-listings-message
+      ></div>
+      <section
+        class="listings-grid row row-cols-3 g-4"
+        data-listings-container
+        aria-label="Auction listings"
+      ></section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <a class="site-footer__brand" href="index.html" aria-label="Bidsy home">
+          <img class="site-footer__logo" src="/img/logo-2.svg" alt="Bidsy" />
+        </a>
+
+        <nav class="site-footer__links" aria-label="Footer navigation">
+          <a class="site-footer__link" href="#">Terms Of Service</a>
+          <a class="site-footer__link" href="#">Privacy Policy</a>
+          <a class="site-footer__link" href="#">Auction Rules</a>
+          <a class="site-footer__link" href="#">Contact Support</a>
+        </nav>
+
+        <p class="site-footer__copyright">2026 Bidsy</p>
+      </div>
+    </footer>
+  </body>
+</html>

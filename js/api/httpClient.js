@@ -1,10 +1,6 @@
 import { apiBaseUrl, apiKey } from "../config.js";
 import { getToken } from "../utils/storage.js";
 
-function makeUrl(endpoint) {
-  return `${apiBaseUrl}${endpoint}`;
-}
-
 function getErrorMessage(errorData) {
   if (errorData.errors && errorData.errors.length > 0) {
     return errorData.errors.map((error) => error.message).join(", ");
@@ -38,13 +34,13 @@ export async function apiRequest(endpoint, options = {}) {
     requestOptions.body = JSON.stringify(options.body);
   }
 
-  const response = await fetch(makeUrl(endpoint), requestOptions);
+  const response = await fetch(`${apiBaseUrl}${endpoint}`, requestOptions);
 
   if (response.status === 204) {
     return null;
   }
 
-  const data = await response.json();
+  const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
     throw new Error(getErrorMessage(data));
