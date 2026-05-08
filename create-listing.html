@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Create Listing | Bidsy</title>
+    <script type="module" src="/js/index.js"></script>
+  </head>
+  <body data-page="create-listing" data-protected="true">
+    <header class="site-header">
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="site-nav__brand" href="index.html" aria-label="Bidsy home">
+          <img class="site-nav__logo" src="/img/logo-2.svg" alt="Bidsy" />
+        </a>
+
+        <div class="site-nav__links">
+          <a class="site-nav__link" href="index.html">Home</a>
+          <a class="site-nav__link" href="listings.html">Auctions</a>
+        </div>
+
+        <div class="site-nav__actions">
+          <a class="site-nav__account-link" href="login.html" data-guest-only>Login</a>
+          <a class="site-nav__account-link" href="register.html" data-guest-only>
+            Register
+          </a>
+          <span class="site-nav__credit-count" data-auth-only data-user-credits></span>
+          <a class="site-nav__create" href="create-listing.html" data-auth-only>
+            Create Listing
+          </a>
+          <button
+            class="site-nav__icon-button"
+            type="button"
+            aria-label="Notifications"
+            data-auth-only
+          >
+            <i class="bi bi-bell"></i>
+          </button>
+          <a
+            class="site-nav__avatar"
+            href="profile.html"
+            aria-label="Profile"
+            data-auth-only
+          >
+            <i class="bi bi-person-fill"></i>
+          </a>
+          <button
+            class="site-nav__logout-button"
+            type="button"
+            data-auth-only
+            data-logout-button
+          >
+            Logout
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="listing-form-page flex-grow-1 d-flex justify-content-center py-4">
+      <section class="listing-form-card" aria-labelledby="create-listing-title">
+        <h1 class="listing-form-card__title" id="create-listing-title">Listing Basics</h1>
+        <p class="listing-form-card__text mb-4">
+          Start by providing the fundamental details of your item.
+        </p>
+
+        <div class="page-message" data-create-listing-message></div>
+
+        <form class="listing-form" data-create-listing-form>
+          <div class="mb-4">
+            <label class="form-label" for="listingTitle">Listing Title</label>
+            <input
+              class="form-control listing-form__input"
+              id="listingTitle"
+              name="title"
+              type="text"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="listingTags">Tags</label>
+            <input
+              class="form-control listing-form__input"
+              id="listingTags"
+              name="tags"
+              type="text"
+              placeholder="camera, vintage"
+            />
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="listingDescription">Description</label>
+            <textarea
+              class="form-control listing-form__textarea"
+              id="listingDescription"
+              name="description"
+              rows="4"
+            ></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="listingEndsAt">Auction End Date & Time</label>
+            <input
+              class="form-control listing-form__input"
+              id="listingEndsAt"
+              name="endsAt"
+              type="datetime-local"
+            />
+          </div>
+
+          <div class="mb-5">
+            <label class="form-label" for="listingImageUrl">Media</label>
+            <div class="listing-form__media">
+              <i class="bi bi-cloud-upload listing-form__media-icon"></i>
+              <p class="listing-form__media-title mb-1">Add image URL</p>
+              <p class="listing-form__media-text mb-3">
+                Use a public image link for your listing photo.
+              </p>
+              <input
+                class="form-control listing-form__input"
+                id="listingImageUrl"
+                name="imageUrl"
+                type="url"
+                placeholder="https://example.com/image.jpg"
+              />
+            </div>
+          </div>
+
+          <button
+            class="listing-form__button btn w-100"
+            type="submit"
+            data-create-listing-button
+          >
+            Complete
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <a class="site-footer__brand" href="index.html" aria-label="Bidsy home">
+          <img class="site-footer__logo" src="/img/logo-2.svg" alt="Bidsy" />
+        </a>
+
+        <nav class="site-footer__links" aria-label="Footer navigation">
+          <a class="site-footer__link" href="#">Terms Of Service</a>
+          <a class="site-footer__link" href="#">Privacy Policy</a>
+          <a class="site-footer__link" href="#">Auction Rules</a>
+          <a class="site-footer__link" href="#">Contact Support</a>
+        </nav>
+
+        <p class="site-footer__copyright">2026 Bidsy</p>
+      </div>
+    </footer>
+  </body>
+</html>

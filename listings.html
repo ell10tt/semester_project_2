@@ -59,6 +59,57 @@
 
     <main class="listings-page flex-grow-1 px-5 pt-5 pb-5">
       <h1 class="listings-page__title text-center mb-5">All Auctions</h1>
+
+      <form
+        class="listings-page__filters row g-3 align-items-end mx-auto mb-4"
+        data-listings-filter-form
+      >
+        <div class="col">
+          <label class="form-label" for="listingSearch">Search</label>
+          <input
+            class="form-control"
+            id="listingSearch"
+            type="search"
+            placeholder="Search loaded auctions"
+            data-listings-search
+          />
+        </div>
+
+        <div class="col">
+          <label class="form-label" for="listingTag">Tag</label>
+          <input
+            class="form-control"
+            id="listingTag"
+            type="text"
+            placeholder="camera"
+            data-listings-tag
+          />
+        </div>
+
+        <div class="col">
+          <label class="form-label" for="listingSort">Sort by</label>
+          <select class="form-select" id="listingSort" data-listings-sort>
+            <option value="created-desc">Newest</option>
+            <option value="endsAt-asc">Ending soon</option>
+            <option value="title-asc">Title A-Z</option>
+          </select>
+        </div>
+
+        <div class="col-auto">
+          <button class="listings-page__filter-button btn" type="submit">Apply</button>
+        </div>
+
+        <div class="col-auto">
+          <button
+            class="listings-page__clear-button btn"
+            type="button"
+            data-clear-listing-filters
+          >
+            Clear
+          </button>
+        </div>
+      </form>
+
       <div
         class="page-message listings-page__message mx-auto mb-4"
         data-listings-message
@@ -68,6 +119,16 @@
         data-listings-container
         aria-label="Auction listings"
       ></section>
+
+      <div class="text-center mt-5">
+        <button
+          class="listings-page__load-button btn is-hidden"
+          type="button"
+          data-load-more-listings
+        >
+          Load More
+        </button>
+      </div>
     </main>
 
     <footer class="site-footer">

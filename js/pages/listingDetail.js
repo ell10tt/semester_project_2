@@ -1,7 +1,8 @@
-import { getListing } from "../api/listings.js";
+import { deleteListing, getListing } from "../api/listings.js";
 import { clearMessage, showMessage } from "../ui/showMessage.js";
 import { formatCurrency } from "../utils/formatCurrency.js";
 import { formatTimeLeft } from "../utils/formatDate.js";
+import { getUser } from "../utils/storage.js";
 
 const fallbackImage =
   "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80";
@@ -35,6 +36,36 @@ function getCurrentBid(listing) {
   }
 
   return Math.max(...listing.bids.map((bid) => bid.amount));
+}
+
+function isOwner(listing) {
+  const user = getUser();
+
+  return Boolean(user && listing.seller?.name === user.name);
+}
+
+async function handleDeleteClick(listing, button) {
+  const shouldDelete = window.confirm("Delete this listing?");
+
+  if (!shouldDelete) {
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Deleting...";
+
+  try {
+    await deleteListing(listing.id);
+    showMessage("Listing deleted.", "success", messageSelector);
+
+    setTimeout(() => {
+      window.location.href = "/listings.html";
+    }, 800);
+  } catch (error) {
+    showMessage(error.message, "error", messageSelector);
+    button.disabled = false;
+    button.textContent = "Delete";
+  }
 }
 
 function renderAvatar(avatarUrl, name, className) {
@@ -119,6 +150,38 @@ function renderSeller(listing) {
   return sellerBox;
 }
 
+function renderOwnerActions(listing) {
+  const actions = makeElement("div", "listing-actions d-flex gap-2 mb-3");
+  const editLink = makeElement("a", "listing-actions__button btn", "Edit");
+  const deleteButton = makeElement(
+    "button",
+    "listing-actions__button listing-actions__button--danger btn",
+    "Delete"
+  );
+
+  editLink.href = `edit-listing.html?id=${encodeURIComponent(listing.id)}`;
+  deleteButton.type = "button";
+  deleteButton.addEventListener("click", () => {
+    handleDeleteClick(listing, deleteButton);
+  });
+
+  actions.append(editLink, deleteButton);
+  return actions;
+}
+
+function renderTitleArea(listing) {
+  const wrapper = makeElement("div", "listing-page__top");
+  const title = makeElement("h1", "listing-page__title", listing.title);
+
+  wrapper.append(title);
+
+  if (isOwner(listing)) {
+    wrapper.append(renderOwnerActions(listing));
+  }
+
+  return wrapper;
+}
+
 function renderBidHistory(bids) {
   const list = makeElement("div", "bid-history__list d-grid");
 
@@ -159,7 +222,6 @@ function renderMainContent(listing) {
   const images = getImages(listing);
   const mainImage = images[0];
   const main = makeElement("div", "listing-detail__main col");
-  const title = makeElement("h1", "listing-page__title", listing.title);
   const image = makeElement("img", "listing-detail__image w-100");
   const thumbs = makeElement(
     "div",
@@ -182,7 +244,7 @@ function renderMainContent(listing) {
   overview.setAttribute("aria-labelledby", "overview-title");
   overviewTitle.id = "overview-title";
   overview.append(overviewTitle, description);
-  main.append(title, image, thumbs, overview, renderSeller(listing));
+  main.append(renderTitleArea(listing), image, thumbs, overview, renderSeller(listing));
 
   return main;
 }

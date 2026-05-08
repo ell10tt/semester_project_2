@@ -362,12 +362,65 @@ body {
   max-width: 520px;
 }
 
+.listings-page__filters {
+  max-width: 960px;
+}
+
+.listings-page__filter-button,
+.listings-page__load-button {
+  min-width: 120px;
+  color: #ffffff;
+  background-color: var(--bidsy-purple);
+  border: 0;
+  border-radius: 8px;
+}
+
+.listings-page__filter-button:hover,
+.listings-page__load-button:hover {
+  color: #ffffff;
+  background-color: #4537d8;
+}
+
+.listings-page__clear-button {
+  min-width: 100px;
+  color: var(--bidsy-purple);
+  background-color: #efedff;
+  border: 0;
+  border-radius: 8px;
+}
+
+.listings-page__clear-button:hover {
+  color: var(--bidsy-purple);
+  background-color: #dddcff;
+}
+
 .listing-page__title {
   margin: 0 0 28px;
   font-family: var(--bidsy-font-heading);
   font-size: 2rem;
   font-weight: 400;
   letter-spacing: 0;
+}
+
+.listing-actions__button {
+  min-width: 88px;
+  color: #ffffff;
+  background-color: var(--bidsy-purple);
+  border: 0;
+  border-radius: 8px;
+}
+
+.listing-actions__button:hover {
+  color: #ffffff;
+  background-color: #4537d8;
+}
+
+.listing-actions__button--danger {
+  background-color: #d12020;
+}
+
+.listing-actions__button--danger:hover {
+  background-color: #b81d1d;
 }
 
 .listing-detail__image {
@@ -684,6 +737,82 @@ body {
 
 .profile-items {
   margin-top: 34px;
+}
+
+.listing-form-page {
+  position: relative;
+  overflow: hidden;
+  background-color: #eeebff;
+  background-image: url("/img/create-listing-background.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.listing-form-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 430px;
+  margin: 8px 0 38px;
+  padding: 32px 30px 34px;
+  background-color: #ffffff;
+  border: 1px solid var(--bidsy-border);
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.listing-form-card__title {
+  margin: 0 0 14px;
+  font-family: var(--bidsy-font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.listing-form-card__text {
+  font-size: 0.95rem;
+}
+
+.listing-form__input {
+  height: 38px;
+}
+
+.listing-form__input,
+.listing-form__textarea {
+  border-color: var(--bidsy-border);
+  border-radius: 8px;
+}
+
+.listing-form__media {
+  min-height: 170px;
+  padding: 24px;
+  background-color: #efedff;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.listing-form__media-icon {
+  color: var(--bidsy-text);
+  font-size: 2.25rem;
+}
+
+.listing-form__media-title,
+.listing-form__media-text {
+  color: #333333;
+}
+
+.listing-form__button {
+  padding: 10px 18px;
+  color: #ffffff;
+  background-color: var(--bidsy-purple);
+  border: 0;
+  border-radius: 8px;
+}
+
+.listing-form__button:hover {
+  color: #ffffff;
+  background-color: #4537d8;
 }
 
 .listing-card {

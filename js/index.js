@@ -10,6 +10,7 @@ import { setupProfilePage } from "./pages/profile.js";
 import { setupHomePage } from "./pages/home.js";
 import { setupListingsPage } from "./pages/listings.js";
 import { setupListingDetailPage } from "./pages/listingDetail.js";
+import { setupCreateListingPage } from "./pages/createListing.js";
 
 function startApp() {
   setupNavbar();
@@ -38,6 +39,10 @@ function startApp() {
 
   if (page === "listing") {
     setupListingDetailPage();
+  }
+
+  if (page === "create-listing") {
+    setupCreateListingPage();
   }
 }
 
