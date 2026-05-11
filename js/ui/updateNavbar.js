@@ -1,18 +1,6 @@
 import { getUser, isLoggedIn } from "../utils/storage.js";
 import { logoutUser } from "../api/auth.js";
 
-function showElements(elements) {
-  elements.forEach((element) => {
-    element.classList.remove("is-hidden");
-  });
-}
-
-function hideElements(elements) {
-  elements.forEach((element) => {
-    element.classList.add("is-hidden");
-  });
-}
-
 export function setupNavbar() {
   const user = getUser();
   const loggedIn = isLoggedIn();
@@ -22,11 +10,11 @@ export function setupNavbar() {
   const logoutButtons = document.querySelectorAll("[data-logout-button]");
 
   if (loggedIn) {
-    hideElements(guestOnlyElements);
-    showElements(authOnlyElements);
+    guestOnlyElements.forEach((element) => element.classList.add("is-hidden"));
+    authOnlyElements.forEach((element) => element.classList.remove("is-hidden"));
   } else {
-    showElements(guestOnlyElements);
-    hideElements(authOnlyElements);
+    guestOnlyElements.forEach((element) => element.classList.remove("is-hidden"));
+    authOnlyElements.forEach((element) => element.classList.add("is-hidden"));
   }
 
   creditsElements.forEach((element) => {

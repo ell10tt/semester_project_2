@@ -94,7 +94,42 @@
         </p>
       </section>
 
-      <section class="profile-section mb-5" aria-labelledby="profile-listings-title">
+      <nav class="profile-tabs mb-4" aria-label="Profile sections">
+        <button
+          class="profile-tabs__button profile-tabs__button--active"
+          type="button"
+          data-profile-tab="listings"
+          aria-controls="profile-listings-panel"
+          aria-selected="true"
+        >
+          My Listings
+        </button>
+        <button
+          class="profile-tabs__button"
+          type="button"
+          data-profile-tab="bids"
+          aria-controls="profile-bids-panel"
+          aria-selected="false"
+        >
+          My Bids
+        </button>
+        <button
+          class="profile-tabs__button"
+          type="button"
+          data-profile-tab="wins"
+          aria-controls="profile-wins-panel"
+          aria-selected="false"
+        >
+          Won Items
+        </button>
+      </nav>
+
+      <section
+        class="profile-section mb-5"
+        id="profile-listings-panel"
+        aria-labelledby="profile-listings-title"
+        data-profile-panel="listings"
+      >
         <h2 class="profile-section__title" id="profile-listings-title">My Listings</h2>
         <div
           class="profile-items row row-cols-3 g-4"
@@ -103,7 +138,12 @@
         ></div>
       </section>
 
-      <section class="profile-section mb-5" aria-labelledby="profile-bids-title">
+      <section
+        class="profile-section mb-5 is-hidden"
+        id="profile-bids-panel"
+        aria-labelledby="profile-bids-title"
+        data-profile-panel="bids"
+      >
         <h2 class="profile-section__title" id="profile-bids-title">My Bids</h2>
         <div
           class="profile-items row row-cols-3 g-4"
@@ -112,7 +152,12 @@
         ></div>
       </section>
 
-      <section class="profile-section" aria-labelledby="profile-wins-title">
+      <section
+        class="profile-section is-hidden"
+        id="profile-wins-panel"
+        aria-labelledby="profile-wins-title"
+        data-profile-panel="wins"
+      >
         <h2 class="profile-section__title" id="profile-wins-title">Won Items</h2>
         <div
           class="profile-items row row-cols-3 g-4"

@@ -1,26 +1,15 @@
+import { createBid } from "../api/bids.js";
 import { deleteListing, getListing } from "../api/listings.js";
+import { getProfile } from "../api/profiles.js";
 import { clearMessage, showMessage } from "../ui/showMessage.js";
+import { setupNavbar } from "../ui/updateNavbar.js";
 import { formatCurrency } from "../utils/formatCurrency.js";
 import { formatTimeLeft } from "../utils/formatDate.js";
-import { getUser } from "../utils/storage.js";
+import { getUser, isLoggedIn, saveUser } from "../utils/storage.js";
 
 const fallbackImage =
   "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80";
 const messageSelector = "[data-listing-message]";
-
-function makeElement(tagName, className, text) {
-  const element = document.createElement(tagName);
-
-  if (className) {
-    element.className = className;
-  }
-
-  if (text) {
-    element.textContent = text;
-  }
-
-  return element;
-}
 
 function getImages(listing) {
   if (listing.media && listing.media.length > 0) {
@@ -70,20 +59,26 @@ async function handleDeleteClick(listing, button) {
 
 function renderAvatar(avatarUrl, name, className) {
   if (avatarUrl) {
-    const image = makeElement("img", `${className}__avatar-image`);
+    const image = document.createElement("img");
+    image.className = `${className}__avatar-image`;
     image.src = avatarUrl;
     image.alt = name;
 
     return image;
   }
 
-  return makeElement("i", "bi bi-person-fill");
+  const icon = document.createElement("i");
+  icon.className = "bi bi-person-fill";
+
+  return icon;
 }
 
 function renderPhotoThumb(image, title) {
-  const column = makeElement("div", "col");
-  const thumb = makeElement("img", "listing-detail__thumb w-100");
+  const column = document.createElement("div");
+  const thumb = document.createElement("img");
 
+  column.className = "col";
+  thumb.className = "listing-detail__thumb w-100";
   thumb.src = image.url || fallbackImage;
   thumb.alt = image.alt || title;
 
@@ -92,20 +87,20 @@ function renderPhotoThumb(image, title) {
 }
 
 function renderMorePhotosThumb(image, extraPhotos) {
-  const column = makeElement("div", "col");
-  const wrapper = makeElement(
-    "div",
-    "listing-detail__more position-relative overflow-hidden"
-  );
-  const thumb = makeElement("img", "listing-detail__thumb w-100");
-  const text = makeElement(
-    "span",
-    "listing-detail__more-text position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center",
-    `+${extraPhotos} Photos`
-  );
+  const column = document.createElement("div");
+  const wrapper = document.createElement("div");
+  const thumb = document.createElement("img");
+  const text = document.createElement("span");
+
+  column.className = "col";
+  wrapper.className = "listing-detail__more position-relative overflow-hidden";
+  thumb.className = "listing-detail__thumb w-100";
+  text.className =
+    "listing-detail__more-text position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center";
 
   thumb.src = image.url || fallbackImage;
   thumb.alt = "";
+  text.textContent = `+${extraPhotos} Photos`;
 
   wrapper.append(thumb, text);
   column.append(wrapper);
@@ -129,19 +124,28 @@ function renderThumbs(images, title) {
 function renderSeller(listing) {
   const sellerName = listing.seller?.name || "Unknown seller";
   const sellerAvatar = listing.seller?.avatar?.url;
-  const sellerBox = makeElement("section", "seller-box");
-  const title = makeElement("h2", "seller-box__title", "Seller:");
-  const card = makeElement("div", "seller-card d-flex align-items-center");
-  const avatar = makeElement(
-    "div",
-    "seller-card__avatar d-flex align-items-center justify-content-center rounded-circle"
-  );
-  const name = makeElement("p", "seller-card__name ms-3", sellerName);
-  const link = makeElement("a", "seller-card__button btn ms-auto", "View profile");
+  const sellerBox = document.createElement("section");
+  const title = document.createElement("h2");
+  const card = document.createElement("div");
+  const avatar = document.createElement("div");
+  const name = document.createElement("p");
+  const link = document.createElement("a");
 
+  sellerBox.className = "seller-box";
   sellerBox.setAttribute("aria-labelledby", "seller-title");
+
+  title.className = "seller-box__title";
   title.id = "seller-title";
+  title.textContent = "Seller:";
+
+  card.className = "seller-card d-flex align-items-center";
+  avatar.className =
+    "seller-card__avatar d-flex align-items-center justify-content-center rounded-circle";
+  name.className = "seller-card__name ms-3";
+  name.textContent = sellerName;
+  link.className = "seller-card__button btn ms-auto";
   link.href = "profile.html";
+  link.textContent = "View profile";
 
   avatar.append(renderAvatar(sellerAvatar, sellerName, "seller-card"));
   card.append(avatar, name, link);
@@ -151,16 +155,18 @@ function renderSeller(listing) {
 }
 
 function renderOwnerActions(listing) {
-  const actions = makeElement("div", "listing-actions d-flex gap-2 mb-3");
-  const editLink = makeElement("a", "listing-actions__button btn", "Edit");
-  const deleteButton = makeElement(
-    "button",
-    "listing-actions__button listing-actions__button--danger btn",
-    "Delete"
-  );
+  const actions = document.createElement("div");
+  const editLink = document.createElement("a");
+  const deleteButton = document.createElement("button");
 
+  actions.className = "listing-actions d-flex gap-2 mb-3";
+  editLink.className = "listing-actions__button btn";
   editLink.href = `edit-listing.html?id=${encodeURIComponent(listing.id)}`;
+  editLink.textContent = "Edit";
+
+  deleteButton.className = "listing-actions__button listing-actions__button--danger btn";
   deleteButton.type = "button";
+  deleteButton.textContent = "Delete";
   deleteButton.addEventListener("click", () => {
     handleDeleteClick(listing, deleteButton);
   });
@@ -170,9 +176,12 @@ function renderOwnerActions(listing) {
 }
 
 function renderTitleArea(listing) {
-  const wrapper = makeElement("div", "listing-page__top");
-  const title = makeElement("h1", "listing-page__title", listing.title);
+  const wrapper = document.createElement("div");
+  const title = document.createElement("h1");
 
+  wrapper.className = "listing-page__top";
+  title.className = "listing-page__title";
+  title.textContent = listing.title;
   wrapper.append(title);
 
   if (isOwner(listing)) {
@@ -183,10 +192,14 @@ function renderTitleArea(listing) {
 }
 
 function renderBidHistory(bids) {
-  const list = makeElement("div", "bid-history__list d-grid");
+  const list = document.createElement("div");
+  list.className = "bid-history__list d-grid";
 
   if (!bids || bids.length === 0) {
-    list.append(makeElement("p", "bid-history__empty", "No bids yet."));
+    const emptyMessage = document.createElement("p");
+    emptyMessage.className = "bid-history__empty";
+    emptyMessage.textContent = "No bids yet.";
+    list.append(emptyMessage);
     return list;
   }
 
@@ -196,18 +209,25 @@ function renderBidHistory(bids) {
     .slice(0, 4)
     .forEach((bid) => {
       const bidderName = bid.bidder?.name || "Bidder";
-      const amount = formatCurrency(bid.amount);
-      const item = makeElement("article", "bid-history__item d-flex align-items-center");
-      const avatar = makeElement(
-        "div",
-        "bid-history__avatar d-flex align-items-center justify-content-center rounded-circle"
-      );
-      const text = makeElement("div", "bid-history__text ms-3");
-      const name = makeElement("p", "bid-history__name", bidderName);
-      const bidAmount = makeElement("p", "bid-history__amount", amount);
-      const link = makeElement("a", "bid-history__button btn ms-auto", "View profile");
+      const item = document.createElement("article");
+      const avatar = document.createElement("div");
+      const text = document.createElement("div");
+      const name = document.createElement("p");
+      const bidAmount = document.createElement("p");
+      const link = document.createElement("a");
 
+      item.className = "bid-history__item d-flex align-items-center";
+      avatar.className =
+        "bid-history__avatar d-flex align-items-center justify-content-center rounded-circle";
+      text.className = "bid-history__text ms-3";
+      name.className = "bid-history__name";
+      bidAmount.className = "bid-history__amount";
+      link.className = "bid-history__button btn ms-auto";
+
+      name.textContent = bidderName;
+      bidAmount.textContent = formatCurrency(bid.amount);
       link.href = "profile.html";
+      link.textContent = "View profile";
 
       avatar.append(renderAvatar(bid.bidder?.avatar?.url, bidderName, "bid-history"));
       text.append(name, bidAmount);
@@ -221,28 +241,29 @@ function renderBidHistory(bids) {
 function renderMainContent(listing) {
   const images = getImages(listing);
   const mainImage = images[0];
-  const main = makeElement("div", "listing-detail__main col");
-  const image = makeElement("img", "listing-detail__image w-100");
-  const thumbs = makeElement(
-    "div",
-    "listing-detail__thumbs row row-cols-3 g-3 mx-3 my-4"
-  );
-  const overview = makeElement("section", "listing-overview");
-  const overviewTitle = makeElement("h2", "listing-overview__title", "Overview");
-  const description = makeElement(
-    "p",
-    "listing-overview__text",
-    listing.description || "No description added yet."
-  );
+  const main = document.createElement("div");
+  const image = document.createElement("img");
+  const thumbs = document.createElement("div");
+  const overview = document.createElement("section");
+  const overviewTitle = document.createElement("h2");
+  const description = document.createElement("p");
+
+  main.className = "listing-detail__main col";
+  image.className = "listing-detail__image w-100";
+  thumbs.className = "listing-detail__thumbs row row-cols-3 g-3 mx-3 my-4";
+  overview.className = "listing-overview";
+  overviewTitle.className = "listing-overview__title";
+  description.className = "listing-overview__text";
 
   image.src = mainImage.url || fallbackImage;
   image.alt = mainImage.alt || listing.title;
-
   thumbs.setAttribute("aria-label", "Listing photos");
-  thumbs.append(...renderThumbs(images, listing.title));
-
   overview.setAttribute("aria-labelledby", "overview-title");
   overviewTitle.id = "overview-title";
+  overviewTitle.textContent = "Overview";
+  description.textContent = listing.description || "No description added yet.";
+
+  thumbs.append(...renderThumbs(images, listing.title));
   overview.append(overviewTitle, description);
   main.append(renderTitleArea(listing), image, thumbs, overview, renderSeller(listing));
 
@@ -252,38 +273,72 @@ function renderMainContent(listing) {
 function renderBidPanel(listing) {
   const currentBid = getCurrentBid(listing);
   const nextBid = currentBid + 1;
-  const aside = makeElement("aside", "bid-panel col-4 text-center");
-  const timeSection = makeElement("div", "bid-panel__section");
-  const timeLabel = makeElement("h2", "bid-panel__label", "Time Left");
-  const timeValue = makeElement("p", "bid-panel__time", formatTimeLeft(listing.endsAt));
-  const bidSection = makeElement("div", "bid-panel__section");
-  const bidLabel = makeElement("h2", "bid-panel__label", "Current Bid");
-  const bidValue = makeElement(
-    "p",
-    "bid-panel__price",
-    `${formatCurrency(currentBid)} USD`
-  );
-  const form = makeElement("form", "bid-form");
-  const label = makeElement("label", "visually-hidden", "Bid amount");
-  const field = makeElement(
-    "div",
-    "bid-form__field d-flex align-items-center justify-content-center mx-auto mb-3"
-  );
-  const currency = makeElement("span", "bid-form__currency", "$");
-  const input = makeElement("input", "bid-form__input");
-  const button = makeElement("button", "bid-form__button btn", "Place Bid");
-  const history = makeElement("section", "bid-history");
-  const historyTitle = makeElement("h2", "bid-history__title", "Bid History");
+  const blockMessage = getBidBlockMessage(listing);
+  const aside = document.createElement("aside");
+  const timeSection = document.createElement("div");
+  const timeLabel = document.createElement("h2");
+  const timeValue = document.createElement("p");
+  const bidSection = document.createElement("div");
+  const bidLabel = document.createElement("h2");
+  const bidValue = document.createElement("p");
+  const form = document.createElement("form");
+  const label = document.createElement("label");
+  const field = document.createElement("div");
+  const currency = document.createElement("span");
+  const input = document.createElement("input");
+  const button = document.createElement("button");
+  const history = document.createElement("section");
+  const historyTitle = document.createElement("h2");
 
+  aside.className = "bid-panel col-4 text-center";
   aside.setAttribute("aria-label", "Bid panel");
 
+  timeSection.className = "bid-panel__section";
+  timeLabel.className = "bid-panel__label";
+  timeValue.className = "bid-panel__time";
+  bidSection.className = "bid-panel__section";
+  bidLabel.className = "bid-panel__label";
+  bidValue.className = "bid-panel__price";
+  form.className = "bid-form";
+  field.className =
+    "bid-form__field d-flex align-items-center justify-content-center mx-auto mb-3";
+  currency.className = "bid-form__currency";
+  input.className = "bid-form__input";
+  button.className = "bid-form__button btn";
+  history.className = "bid-history";
+  historyTitle.className = "bid-history__title";
+
+  timeLabel.textContent = "Time Left";
+  timeValue.textContent = formatTimeLeft(listing.endsAt);
+  bidLabel.textContent = "Current Bid";
+  bidValue.textContent = `${formatCurrency(currentBid)} USD`;
+  label.textContent = "Bid amount";
+  currency.textContent = "$";
+  button.textContent = "Place Bid";
+  historyTitle.textContent = "Bid History";
+
+  label.className = "visually-hidden";
   label.htmlFor = "bid-amount";
   input.id = "bid-amount";
   input.name = "bidAmount";
   input.type = "number";
   input.min = String(nextBid);
+  input.step = "1";
   input.placeholder = String(nextBid);
+  input.required = true;
   button.type = "submit";
+  button.dataset.bidButton = "true";
+  form.dataset.bidForm = "true";
+
+  if (blockMessage) {
+    const formMessage = document.createElement("p");
+
+    input.disabled = true;
+    button.disabled = true;
+    formMessage.className = "bid-form__message";
+    formMessage.textContent = blockMessage;
+    form.append(formMessage);
+  }
 
   history.setAttribute("aria-labelledby", "bid-history-title");
   historyTitle.id = "bid-history-title";
@@ -291,7 +346,7 @@ function renderBidPanel(listing) {
   timeSection.append(timeLabel, timeValue);
   bidSection.append(bidLabel, bidValue);
   field.append(currency, input);
-  form.append(label, field, button);
+  form.prepend(label, field, button);
   history.append(historyTitle, renderBidHistory(listing.bids));
   aside.append(timeSection, bidSection, form, history);
 
@@ -312,6 +367,121 @@ function getListingId() {
   return searchParams.get("id");
 }
 
+function getBidBlockMessage(listing) {
+  if (!isLoggedIn()) {
+    return "Please log in before placing a bid.";
+  }
+
+  if (isOwner(listing)) {
+    return "You cannot bid on your own listing.";
+  }
+
+  if (new Date(listing.endsAt) <= new Date()) {
+    return "This auction has ended.";
+  }
+
+  return "";
+}
+
+function getBidErrorMessage(form, listing) {
+  const amount = Number(form.elements.bidAmount.value);
+  const minimumBid = getCurrentBid(listing) + 1;
+
+  if (!Number.isInteger(amount)) {
+    return "Please use a whole number for your bid.";
+  }
+
+  if (amount < minimumBid) {
+    return `Your bid must be at least ${formatCurrency(minimumBid)}.`;
+  }
+
+  return "";
+}
+
+async function refreshLoggedInUser() {
+  const user = getUser();
+
+  if (!user) {
+    return;
+  }
+
+  try {
+    const profile = await getProfile(user.name);
+    saveUser({ ...user, ...profile });
+    setupNavbar();
+  } catch {
+    return;
+  }
+}
+
+function setupBidForm(listing, detailContainer, listingId) {
+  const form = detailContainer.querySelector("[data-bid-form]");
+
+  if (!form) {
+    return;
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    clearMessage(messageSelector);
+
+    const blockMessage = getBidBlockMessage(listing);
+
+    if (blockMessage) {
+      showMessage(blockMessage, "error", messageSelector);
+      return;
+    }
+
+    const errorMessage = getBidErrorMessage(form, listing);
+
+    if (errorMessage) {
+      showMessage(errorMessage, "error", messageSelector);
+      return;
+    }
+
+    const amount = Number(form.elements.bidAmount.value);
+    const button = form.querySelector("[data-bid-button]");
+    button.disabled = true;
+    button.textContent = "Placing...";
+
+    try {
+      await createBid(listingId, amount);
+      await refreshLoggedInUser();
+      await loadListing(detailContainer, listingId, "Bid placed.");
+    } catch (error) {
+      button.disabled = false;
+      button.textContent = "Place Bid";
+      showMessage(error.message, "error", messageSelector);
+    }
+  });
+}
+
+async function loadListing(detailContainer, listingId, successMessage = "") {
+  showMessage("Loading auction...", "info", messageSelector);
+
+  try {
+    const listing = await getListing(listingId);
+
+    if (!listing) {
+      detailContainer.replaceChildren();
+      showMessage("Auction was not found.", "error", messageSelector);
+      return;
+    }
+
+    detailContainer.replaceChildren(renderListingDetail(listing));
+    setupBidForm(listing, detailContainer, listingId);
+
+    if (successMessage) {
+      showMessage(successMessage, "success", messageSelector);
+    } else {
+      clearMessage(messageSelector);
+    }
+  } catch (error) {
+    detailContainer.replaceChildren();
+    showMessage(error.message, "error", messageSelector);
+  }
+}
+
 export async function setupListingDetailPage() {
   const detailContainer = document.querySelector("[data-listing-detail]");
 
@@ -327,21 +497,5 @@ export async function setupListingDetailPage() {
     return;
   }
 
-  showMessage("Loading auction...", "info", messageSelector);
-
-  try {
-    const listing = await getListing(listingId);
-
-    if (!listing) {
-      detailContainer.replaceChildren();
-      showMessage("Auction was not found.", "error", messageSelector);
-      return;
-    }
-
-    clearMessage(messageSelector);
-    detailContainer.replaceChildren(renderListingDetail(listing));
-  } catch (error) {
-    detailContainer.replaceChildren();
-    showMessage(error.message, "error", messageSelector);
-  }
+  await loadListing(detailContainer, listingId);
 }

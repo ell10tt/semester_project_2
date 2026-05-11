@@ -582,6 +582,18 @@ body {
   text-transform: uppercase;
 }
 
+.bid-form__button:disabled {
+  background-color: #777681;
+  cursor: not-allowed;
+}
+
+.bid-form__message {
+  max-width: 260px;
+  margin: 14px auto 0;
+  color: #555555;
+  font-size: 0.95rem;
+}
+
 .bid-history__title {
   margin-bottom: 26px;
 }
@@ -768,18 +780,20 @@ body {
 .profile-tabs {
   display: flex;
   gap: 34px;
-  border-top: 3px solid var(--bidsy-purple);
+  padding-top: 14px;
+  border-top: 2px solid var(--bidsy-purple);
 }
 
 .profile-tabs__button {
   padding: 0;
-  color: var(--bidsy-text);
+  color: #555555;
   background: transparent;
   border: 0;
   font-size: 20px;
   font-weight: 700;
 }
 
+.profile-tabs__button:hover,
 .profile-tabs__button--active {
   color: var(--bidsy-text);
 }
@@ -797,6 +811,91 @@ body {
 .profile-items__empty {
   margin: 0;
   color: #555555;
+}
+
+.edit-profile-page__message {
+  max-width: 560px;
+}
+
+.edit-profile-header__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  color: var(--bidsy-gray);
+  background-color: #f4b400;
+  border-radius: 50%;
+  font-size: 92px;
+}
+
+.edit-profile-header__avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.edit-profile-header__name {
+  margin: 0 0 8px;
+  font-family: var(--bidsy-font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.edit-profile-header__email {
+  margin: 0 0 6px;
+  color: var(--bidsy-gray);
+}
+
+.edit-profile-header__credits {
+  margin: 0;
+  color: var(--bidsy-green);
+  font-weight: 700;
+}
+
+.edit-profile-form {
+  max-width: 560px;
+}
+
+.edit-profile-form__label {
+  font-weight: 700;
+}
+
+.edit-profile-form__input {
+  height: 44px;
+}
+
+.edit-profile-form__input,
+.edit-profile-form__textarea {
+  border-color: var(--bidsy-purple);
+  border-radius: 8px;
+}
+
+.edit-profile-form__button,
+.edit-profile-form__cancel {
+  min-width: 150px;
+  color: #ffffff;
+  border: 0;
+  border-radius: 8px;
+}
+
+.edit-profile-form__button {
+  background-color: var(--bidsy-green);
+}
+
+.edit-profile-form__button:hover {
+  color: #ffffff;
+  background-color: #73a957;
+}
+
+.edit-profile-form__cancel {
+  background-color: var(--bidsy-purple);
+}
+
+.edit-profile-form__cancel:hover {
+  color: #ffffff;
+  background-color: #4537d8;
 }
 
 .listing-form-page {

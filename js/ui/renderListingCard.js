@@ -4,20 +4,6 @@ import { formatTimeLeft } from "../utils/formatDate.js";
 const fallbackImage =
   "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80";
 
-function makeElement(tagName, className, text) {
-  const element = document.createElement(tagName);
-
-  if (className) {
-    element.className = className;
-  }
-
-  if (text) {
-    element.textContent = text;
-  }
-
-  return element;
-}
-
 function getImage(listing) {
   return listing.media?.[0]?.url || fallbackImage;
 }
@@ -45,46 +31,52 @@ function getShortDescription(text) {
 }
 
 export function renderListingCard(listing) {
-  const column = makeElement("div", "col");
-  const card = makeElement("article", "listing-card h-100");
-  const imageLink = makeElement("a", "listing-card__image-link d-block");
-  const image = makeElement("img", "listing-card__image w-100");
-  const body = makeElement("div", "listing-card__body p-3");
-  const header = makeElement(
-    "div",
-    "listing-card__header d-flex align-items-center justify-content-between"
-  );
-  const title = makeElement("h2", "listing-card__title mb-0", listing.title);
-  const favoriteButton = makeElement("button", "listing-card__favorite");
-  const favoriteIcon = makeElement("i", "bi bi-heart");
-  const description = makeElement(
-    "p",
-    "listing-card__text my-3",
-    getShortDescription(listing.description)
-  );
-  const line = makeElement("div", "listing-card__line");
-  const meta = makeElement(
-    "div",
-    "listing-card__meta d-flex justify-content-between mt-3"
-  );
-  const bidText = makeElement("p", "mb-0");
-  const bidLabel = makeElement("strong", "", "Current Bid:");
-  const bidValue = makeElement(
-    "span",
-    "listing-card__price d-block",
-    formatCurrency(getCurrentBid(listing))
-  );
-  const timeText = makeElement("p", "mb-0");
-  const timeLabel = makeElement("strong", "", "Time left:");
-  const timeValue = makeElement(
-    "span",
-    "listing-card__time d-block",
-    formatTimeLeft(listing.endsAt)
-  );
+  const column = document.createElement("div");
+  const card = document.createElement("article");
+  const imageLink = document.createElement("a");
+  const image = document.createElement("img");
+  const body = document.createElement("div");
+  const header = document.createElement("div");
+  const title = document.createElement("h2");
+  const favoriteButton = document.createElement("button");
+  const favoriteIcon = document.createElement("i");
+  const description = document.createElement("p");
+  const line = document.createElement("div");
+  const meta = document.createElement("div");
+  const bidText = document.createElement("p");
+  const bidLabel = document.createElement("strong");
+  const bidValue = document.createElement("span");
+  const timeText = document.createElement("p");
+  const timeLabel = document.createElement("strong");
+  const timeValue = document.createElement("span");
+
+  column.className = "col";
+  card.className = "listing-card h-100";
+  imageLink.className = "listing-card__image-link d-block";
+  image.className = "listing-card__image w-100";
+  body.className = "listing-card__body p-3";
+  header.className =
+    "listing-card__header d-flex align-items-center justify-content-between";
+  title.className = "listing-card__title mb-0";
+  favoriteButton.className = "listing-card__favorite";
+  favoriteIcon.className = "bi bi-heart";
+  description.className = "listing-card__text my-3";
+  line.className = "listing-card__line";
+  meta.className = "listing-card__meta d-flex justify-content-between mt-3";
+  bidText.className = "mb-0";
+  bidValue.className = "listing-card__price d-block";
+  timeText.className = "mb-0";
+  timeValue.className = "listing-card__time d-block";
 
   imageLink.href = `listing.html?id=${encodeURIComponent(listing.id)}`;
   image.src = getImage(listing);
   image.alt = getImageAlt(listing);
+  title.textContent = listing.title;
+  description.textContent = getShortDescription(listing.description);
+  bidLabel.textContent = "Current Bid:";
+  bidValue.textContent = formatCurrency(getCurrentBid(listing));
+  timeLabel.textContent = "Time left:";
+  timeValue.textContent = formatTimeLeft(listing.endsAt);
 
   favoriteButton.type = "button";
   favoriteButton.setAttribute("aria-label", "Add to favourites");

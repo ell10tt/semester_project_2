@@ -12,6 +12,7 @@ import { setupListingsPage } from "./pages/listings.js";
 import { setupListingDetailPage } from "./pages/listingDetail.js";
 import { setupCreateListingPage } from "./pages/createListing.js";
 import { setupEditListingPage } from "./pages/editListing.js";
+import { setupEditProfilePage } from "./pages/editProfile.js";
 
 function startApp() {
   setupNavbar();
@@ -48,6 +49,10 @@ function startApp() {
 
   if (page === "edit-listing") {
     setupEditListingPage();
+  }
+
+  if (page === "edit-profile") {
+    setupEditProfilePage();
   }
 }
 

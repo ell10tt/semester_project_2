@@ -11,3 +11,10 @@ export function getProfileBids(name) {
     `/auction/profiles/${encodeURIComponent(name)}/bids?_listings=true&sort=created&sortOrder=desc`
   );
 }
+
+export function updateProfile(name, profileData) {
+  return apiRequest(`/auction/profiles/${encodeURIComponent(name)}`, {
+    method: "PUT",
+    body: profileData,
+  });
+}

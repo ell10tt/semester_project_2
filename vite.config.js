@@ -10,6 +10,7 @@ export default {
         profile: "profile.html",
         createListing: "create-listing.html",
         editListing: "edit-listing.html",
+        editProfile: "edit-profile.html",
       },
     },
   },
