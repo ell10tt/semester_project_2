@@ -651,11 +651,26 @@ body {
 
 .profile-page {
   flex: 1;
-  padding: 92px 64px 270px;
+  padding: 64px 64px 180px;
 }
 
 .profile-page__message {
   max-width: 640px;
+}
+
+.profile-banner {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+  border-radius: 8px;
+}
+
+.profile-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(17, 24, 39, 0.24);
 }
 
 .profile-header {
@@ -692,11 +707,24 @@ body {
   line-height: 1;
 }
 
+.profile-header__email {
+  margin: 0 0 8px;
+  color: var(--bidsy-gray);
+  font-size: 16px;
+}
+
 .profile-header__credits {
   margin: 0 0 20px;
   color: var(--bidsy-green);
   font-size: 18px;
   font-weight: 700;
+}
+
+.profile-header__bio {
+  max-width: 540px;
+  margin: 0 0 20px;
+  color: #333333;
+  font-size: 16px;
 }
 
 .profile-header__button {
@@ -714,6 +742,27 @@ body {
 .profile-header__button:hover {
   color: #ffffff;
   background-color: #4537d8;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 24px;
+  padding-top: 18px;
+  border-top: 2px solid var(--bidsy-purple);
+}
+
+.profile-stats__item {
+  margin: 0;
+  min-width: 120px;
+  color: #333333;
+  font-size: 16px;
+}
+
+.profile-stats__item strong {
+  display: block;
+  color: var(--bidsy-text);
+  font-family: var(--bidsy-font-heading);
+  font-size: 28px;
 }
 
 .profile-tabs {
@@ -737,6 +786,17 @@ body {
 
 .profile-items {
   margin-top: 34px;
+}
+
+.profile-section__title {
+  font-family: var(--bidsy-font-heading);
+  font-size: 1.75rem;
+  font-weight: 400;
+}
+
+.profile-items__empty {
+  margin: 0;
+  color: #555555;
 }
 
 .listing-form-page {

@@ -1,4 +1,4 @@
-import { getProfile } from "../api/profiles.js";
+import { getProfile, getProfileBids } from "../api/profiles.js";
 import { renderProfile } from "../ui/renderProfile.js";
 import { setupNavbar } from "../ui/updateNavbar.js";
 import { getUser, saveUser } from "../utils/storage.js";
@@ -21,8 +21,10 @@ export async function setupProfilePage() {
 
   try {
     const profile = await getProfile(user.name);
+    const bids = await getProfileBids(user.name);
+
     saveUser(profile);
-    renderProfile(profile);
+    renderProfile(profile, bids || []);
     setupNavbar();
   } catch (error) {
     showMessage(error.message);

@@ -58,6 +58,10 @@
     <main class="profile-page">
       <div class="page-message profile-page__message" data-message></div>
 
+      <section class="profile-banner mb-4" data-profile-banner>
+        <div class="profile-banner__overlay"></div>
+      </section>
+
       <section class="profile-header">
         <div class="profile-header__avatar" data-profile-avatar>
           <i class="bi bi-person-fill"></i>
@@ -65,56 +69,56 @@
 
         <div class="profile-header__info">
           <h1 class="profile-header__name" data-profile-name>John Doe</h1>
+          <p class="profile-header__email" data-profile-email></p>
           <p class="profile-header__credits" data-profile-credits>Credits: 0</p>
-          <a class="profile-header__button" href="#">
+          <p class="profile-header__bio" data-profile-bio>No bio yet.</p>
+          <a class="profile-header__button" href="edit-profile.html">
             <i class="bi bi-pencil"></i>
             Edit Profile
           </a>
         </div>
       </section>
 
-      <section class="profile-tabs" aria-label="Profile sections">
-        <button class="profile-tabs__button profile-tabs__button--active" type="button">
-          My Bids
-        </button>
-        <button class="profile-tabs__button" type="button">My Listings</button>
-        <button class="profile-tabs__button" type="button">Won Items</button>
+      <section class="profile-stats mb-5" aria-label="Profile stats">
+        <p class="profile-stats__item">
+          <strong data-profile-listing-count>0</strong>
+          Listings
+        </p>
+        <p class="profile-stats__item">
+          <strong data-profile-bid-count>0</strong>
+          Bids
+        </p>
+        <p class="profile-stats__item">
+          <strong data-profile-win-count>0</strong>
+          Wins
+        </p>
       </section>
 
-      <section class="profile-items" aria-label="Profile listings">
-        <article class="listing-card">
-          <img
-            class="listing-card__image"
-            src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80"
-            alt="Vintage Canon camera"
-          />
-          <div class="listing-card__body">
-            <div class="listing-card__header">
-              <h2 class="listing-card__title">Camera Canon</h2>
-              <button
-                class="listing-card__favorite"
-                type="button"
-                aria-label="Add to favourites"
-              >
-                <i class="bi bi-heart"></i>
-              </button>
-            </div>
-            <p class="listing-card__text">
-              Old camera Canon. Make cool and atmospheric photos
-            </p>
-            <div class="listing-card__line"></div>
-            <div class="listing-card__meta">
-              <p>
-                <strong>Current Bid:</strong>
-                <span class="listing-card__price">$200</span>
-              </p>
-              <p>
-                <strong>Time left:</strong>
-                <span class="listing-card__time">02:14:30</span>
-              </p>
-            </div>
-          </div>
-        </article>
+      <section class="profile-section mb-5" aria-labelledby="profile-listings-title">
+        <h2 class="profile-section__title" id="profile-listings-title">My Listings</h2>
+        <div
+          class="profile-items row row-cols-3 g-4"
+          data-profile-listings
+          aria-label="Created listings"
+        ></div>
+      </section>
+
+      <section class="profile-section mb-5" aria-labelledby="profile-bids-title">
+        <h2 class="profile-section__title" id="profile-bids-title">My Bids</h2>
+        <div
+          class="profile-items row row-cols-3 g-4"
+          data-profile-bids
+          aria-label="Listings user bid on"
+        ></div>
+      </section>
+
+      <section class="profile-section" aria-labelledby="profile-wins-title">
+        <h2 class="profile-section__title" id="profile-wins-title">Won Items</h2>
+        <div
+          class="profile-items row row-cols-3 g-4"
+          data-profile-wins
+          aria-label="Won listings"
+        ></div>
       </section>
     </main>
 

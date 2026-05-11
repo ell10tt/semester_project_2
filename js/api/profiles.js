@@ -5,3 +5,9 @@ export function getProfile(name) {
     `/auction/profiles/${encodeURIComponent(name)}?_listings=true&_wins=true`
   );
 }
+
+export function getProfileBids(name) {
+  return apiRequest(
+    `/auction/profiles/${encodeURIComponent(name)}/bids?_listings=true&sort=created&sortOrder=desc`
+  );
+}
