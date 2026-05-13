@@ -55,7 +55,9 @@
       </nav>
     </header>
 
-    <main class="listing-form-page flex-grow-1 d-flex justify-content-center py-4">
+    <main
+      class="listing-form-page flex-grow-1 d-flex justify-content-center px-3 px-md-0 py-4"
+    >
       <section class="listing-form-card" aria-labelledby="create-listing-title">
         <h1 class="listing-form-card__title" id="create-listing-title">Listing Basics</h1>
         <p class="listing-form-card__text mb-4">
@@ -71,6 +73,7 @@
               class="form-control listing-form__input"
               id="listingTitle"
               name="title"
+              required
               type="text"
             />
           </div>
@@ -102,6 +105,7 @@
               class="form-control listing-form__input"
               id="listingEndsAt"
               name="endsAt"
+              required
               type="datetime-local"
             />
           </div>

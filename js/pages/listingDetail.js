@@ -248,9 +248,9 @@ function renderMainContent(listing) {
   const overviewTitle = document.createElement("h2");
   const description = document.createElement("p");
 
-  main.className = "listing-detail__main col";
+  main.className = "listing-detail__main col-12 col-xl-8";
   image.className = "listing-detail__image w-100";
-  thumbs.className = "listing-detail__thumbs row row-cols-3 g-3 mx-3 my-4";
+  thumbs.className = "listing-detail__thumbs row row-cols-1 row-cols-md-3 g-3 mx-3 my-4";
   overview.className = "listing-overview";
   overviewTitle.className = "listing-overview__title";
   description.className = "listing-overview__text";
@@ -290,7 +290,7 @@ function renderBidPanel(listing) {
   const history = document.createElement("section");
   const historyTitle = document.createElement("h2");
 
-  aside.className = "bid-panel col-4 text-center";
+  aside.className = "bid-panel col-12 col-xl-4 text-center";
   aside.setAttribute("aria-label", "Bid panel");
 
   timeSection.className = "bid-panel__section";

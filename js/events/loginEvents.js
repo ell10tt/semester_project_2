@@ -17,6 +17,10 @@ export function setupLoginForm() {
     const formData = new FormData(form);
     const email = formData.get("email")?.trim();
     const password = formData.get("password");
+    const button = form.querySelector("button");
+
+    button.disabled = true;
+    button.textContent = "Logging in...";
 
     try {
       const user = await loginUser(email, password);
@@ -28,6 +32,8 @@ export function setupLoginForm() {
       window.location.href = "/profile.html";
     } catch (error) {
       showMessage(error.message);
+      button.disabled = false;
+      button.textContent = "Login";
     }
   });
 }

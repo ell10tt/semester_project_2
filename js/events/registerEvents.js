@@ -20,18 +20,26 @@ export function setupRegisterForm() {
     const name = formData.get("name")?.trim();
     const email = formData.get("email")?.trim();
     const password = formData.get("password");
+    const button = form.querySelector("button");
 
     if (!isNoroffEmail(email)) {
       showMessage("Email must end with @stud.noroff.no");
       return;
     }
 
+    button.disabled = true;
+    button.textContent = "Registering...";
+
     try {
       await registerUser({ name, email, password });
       form.reset();
       showMessage("Account created. You can log in now.", "success");
+      button.disabled = false;
+      button.textContent = "Register";
     } catch (error) {
       showMessage(error.message);
+      button.disabled = false;
+      button.textContent = "Register";
     }
   });
 }

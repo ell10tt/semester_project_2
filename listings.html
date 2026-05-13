@@ -57,14 +57,14 @@
       </nav>
     </header>
 
-    <main class="listings-page flex-grow-1 px-5 pt-5 pb-5">
+    <main class="listings-page flex-grow-1 px-4 px-lg-5 pt-5 pb-5">
       <h1 class="listings-page__title text-center mb-5">All Auctions</h1>
 
       <form
         class="listings-page__filters row g-3 align-items-end mx-auto mb-4"
         data-listings-filter-form
       >
-        <div class="col">
+        <div class="col-12 col-md">
           <label class="form-label" for="listingSearch">Search</label>
           <input
             class="form-control"
@@ -75,7 +75,7 @@
           />
         </div>
 
-        <div class="col">
+        <div class="col-12 col-md">
           <label class="form-label" for="listingTag">Tag</label>
           <input
             class="form-control"
@@ -86,7 +86,7 @@
           />
         </div>
 
-        <div class="col">
+        <div class="col-12 col-md">
           <label class="form-label" for="listingSort">Sort by</label>
           <select class="form-select" id="listingSort" data-listings-sort>
             <option value="created-desc">Newest</option>
@@ -95,11 +95,11 @@
           </select>
         </div>
 
-        <div class="col-auto">
+        <div class="col-12 col-sm-auto">
           <button class="listings-page__filter-button btn" type="submit">Apply</button>
         </div>
 
-        <div class="col-auto">
+        <div class="col-12 col-sm-auto">
           <button
             class="listings-page__clear-button btn"
             type="button"
@@ -115,7 +115,7 @@
         data-listings-message
       ></div>
       <section
-        class="listings-grid row row-cols-3 g-4"
+        class="listings-grid row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4"
         data-listings-container
         aria-label="Auction listings"
       ></section>
