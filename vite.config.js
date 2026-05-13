@@ -1,4 +1,5 @@
 export default {
+  base: "/semester_project_2/",
   build: {
     rollupOptions: {
       input: {
