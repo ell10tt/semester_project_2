@@ -5,13 +5,13 @@ export function requireAuth() {
     return true;
   }
 
-  window.location.href = "/login.html";
+  window.location.href = "login.html";
   return false;
 }
 
 export function redirectIfLoggedIn() {
   if (isLoggedIn()) {
-    window.location.href = "/profile.html";
+    window.location.href = "profile.html";
     return true;
   }
 

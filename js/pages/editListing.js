@@ -166,7 +166,7 @@ export async function setupEditListingPage() {
       showMessage("Listing updated.", "success", messageSelector);
 
       setTimeout(() => {
-        window.location.href = `/listing.html?id=${encodeURIComponent(listingId)}`;
+        window.location.href = `listing.html?id=${encodeURIComponent(listingId)}`;
       }, 800);
     } catch (error) {
       showMessage(error.message, "error", messageSelector);

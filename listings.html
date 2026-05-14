@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/img/logo-1.svg" />
     <title>Auctions | Bidsy</title>
     <script type="module" src="/js/index.js"></script>
   </head>
@@ -21,9 +22,21 @@
         </div>
 
         <div class="site-nav__actions">
-          <a class="site-nav__account-link" href="login.html" data-guest-only>Login</a>
-          <a class="site-nav__account-link" href="register.html" data-guest-only>
-            Register
+          <a
+            class="site-nav__account-link"
+            href="login.html"
+            aria-label="Login"
+            data-guest-only
+          >
+            <i class="bi bi-box-arrow-in-right"></i>
+          </a>
+          <a
+            class="site-nav__account-link"
+            href="register.html"
+            aria-label="Register"
+            data-guest-only
+          >
+            <i class="bi bi-person-plus"></i>
           </a>
           <span class="site-nav__credit-count" data-auth-only data-user-credits></span>
           <a class="site-nav__create" href="create-listing.html" data-auth-only>
@@ -42,6 +55,7 @@
             href="profile.html"
             aria-label="Profile"
             data-auth-only
+            data-user-avatar
           >
             <i class="bi bi-person-fill"></i>
           </a>

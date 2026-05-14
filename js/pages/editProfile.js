@@ -161,7 +161,7 @@ export async function setupEditProfilePage() {
       showMessage("Profile updated.", "success", messageSelector);
 
       setTimeout(() => {
-        window.location.href = "/profile.html";
+        window.location.href = "profile.html";
       }, 800);
     } catch (error) {
       button.disabled = false;

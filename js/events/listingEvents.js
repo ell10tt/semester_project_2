@@ -101,7 +101,7 @@ export function setupCreateListingForm() {
       showMessage("Listing created successfully.", "success", messageSelector);
 
       setTimeout(() => {
-        window.location.href = `/listing.html?id=${encodeURIComponent(listing.id)}`;
+        window.location.href = `listing.html?id=${encodeURIComponent(listing.id)}`;
       }, 800);
     } catch (error) {
       showMessage(error.message, "error", messageSelector);

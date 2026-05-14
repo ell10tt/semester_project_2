@@ -24,6 +24,7 @@ export async function loginUser(email, password) {
     email: user.email,
     avatar: user.avatar,
     banner: user.banner,
+    credits: user.credits,
   };
 
   saveUser(userInfo);

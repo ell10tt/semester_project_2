@@ -48,7 +48,7 @@ async function handleDeleteClick(listing, button) {
     showMessage("Listing deleted.", "success", messageSelector);
 
     setTimeout(() => {
-      window.location.href = "/listings.html";
+      window.location.href = "listings.html";
     }, 800);
   } catch (error) {
     showMessage(error.message, "error", messageSelector);

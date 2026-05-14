@@ -29,7 +29,7 @@ export function setupLoginForm() {
       saveUser(profile);
 
       showMessage("Logged in successfully.", "success");
-      window.location.href = "/profile.html";
+      window.location.href = "profile.html";
     } catch (error) {
       showMessage(error.message);
       button.disabled = false;
