@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      VITE_API_KEY: ${{ secrets.VITE_API_KEY || vars.VITE_API_KEY }}
 
     steps:
       - name: Get code
@@ -29,6 +31,13 @@ jobs:
 
       - name: Install packages
         run: npm install
+
+      - name: Check API key
+        run: |
+          if [ -z "$VITE_API_KEY" ]; then
+            echo "VITE_API_KEY is missing. Add it in GitHub repository secrets or variables."
+            exit 1
+          fi
 
       - name: Build site
         run: npm run build
